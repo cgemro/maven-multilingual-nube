@@ -1,38 +1,38 @@
 name: Build and Analyze
- 
+
 on:
-push:
-branches:
-- main
-pull_request:
- 
+  push:
+    branches:
+      - main
+  pull_request:
+  
 jobs:
-build:
-runs-on: ubuntu-latest
- 
-steps:
-- uses: actions/checkout@v5
-with:
-fetch-depth: 0
- 
-- name: Set up JDK
-uses: actions/setup-java@v5
-with:
-distribution: temurin
-java-version: 21
- 
-- name: Cache SonarCloud packages
-uses: actions/cache@v4
-with:
-path: ~/.sonar/cache
-key: ${{ runner.os }}-sonar
- 
-- name: Build and analyze
-env:
-SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-run: >
-mvn -B verify
-org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
--Dsonar.token=${SONAR_TOKEN}
--Dsonar.organization=<organization-key>
--Dsonar.projectKey=<project-key>
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: >
+          mvn -B verify
+          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          -Dsonar.token=${SONAR_TOKEN}
+          -Dsonar.organization=<organization-key>
+          -Dsonar.projectKey=<project-key>
