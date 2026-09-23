@@ -1,4 +1,4 @@
-# Multilingual Maven Example 1
+# Multilingual Maven Example 3
 
 This simple Maven project is importing JaCoCo's coverage report for Java and Kotlin sources in one module. For multi-module project example 
 see [multi-module Maven project](../maven-multimodule/README.md)
